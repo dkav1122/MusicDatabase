@@ -1,14 +1,10 @@
 package com.amazon.ata.test.reflect;
 
-import com.amazon.ata.test.reflect.ClassQuery;
-import com.amazon.ata.test.reflect.MultipleClassesFoundException;
-import com.amazon.ata.test.reflect.NoClassFoundException;
 import com.amazon.ata.test.reflect.testpackage.AnotherClassInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.ClassInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.ExceptionInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.anothersubpackage.ClassInTestPackageAnotherSubpackage;
 import com.amazon.ata.test.reflect.testpackage.subpackage.ClassInTestPackageSubpackage;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
@@ -16,9 +12,7 @@ import org.opentest4j.AssertionFailedError;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ClassQueryTest {
     private static final String TEST_PACKAGE_NAME = ClassInTestPackage.class.getPackage().getName();
