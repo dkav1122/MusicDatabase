@@ -1,1 +1,109 @@
-PARTICIPANTS: use this file for creating the class diagram in mastery task 01
+@startuml
+
+
+interface RequestHandler {
+    +handleRequest()
+}
+
+class AddSongToPlaylistActivity {
+    -log: Logger
+    -playlistDao: PlaylistDao
+    -albumTrackDao: AlbumTrackDao
+    +handleRequest(AddSongToPlaylistRequest): AddSongToPlaylistResult
+}
+
+class CreatePlaylistActivity {
+    -log: Logger
+    -playlistDao: PlaylistDao
+    +handleRequest(CreatePlaylistRequest): CreatePlaylistResult
+
+}
+
+class GetPlaylistActivity {
+    -log: Logger
+    -playlistDao: PlaylistDao
+    +handleRequest(GetPlaylistRequest): GetPlaylistResult
+}
+
+class GetPlaylistSongsActivity {
+    -log: Logger
+    -playlistDao: PlaylistDao
+    +handleRequest(GetPlaylistSongsRequest): GetPlaylistSongsResult
+}
+
+class UpdatePlaylistActivity {
+    -log: Logger
+    -playlistDao: PlaylistDao
+    +handleRequest(UpdatePlaylistRequest): UpdatePlaylistResult
+}
+
+class AlbumTrackDao {
+    -dynamoDbMapper: DynamoDBMapper
+
+}
+
+class PlaylistDao {
+    -dynamoDbMapper: DynamoDBMapper
+    +getPlaylist(String): Playlist
+}
+
+class RuntimeException {
+}
+
+class AlbumTrackNotFoundException {
+    -serialVersionUID: long
+}
+
+class InvalidAttributeValueException {
+    -serialVersionUID: long
+}
+
+class PlaylistNotFoundException {
+    -serialVersionUID: long
+}
+
+class Playlist {
+    -@DynamoDBHashKey id: String
+    -name: String
+    -customerId: String
+    -songCount: Integer
+    -tags: Set<String>
+    -songList: List<AlbumTrack>
+
+}
+
+class AlbumTrack {
+    -@DynamoDBHashKey asin: String
+    -@DynamoDBRangeKey trackNumber: Integer
+    -albumName: String
+    -songTitle: String
+}
+
+
+
+
+
+
+
+
+class AddSongToPlaylistActivity implements RequestHandler
+class CreatePlaylistActivity implements RequestHandler
+class GetPlaylistActivity implements RequestHandler
+class GetPlaylistSongsActivity implements RequestHandler
+class UpdatePlaylistActivity implements RequestHandler
+class AlbumTrackNotFoundException extends RuntimeException
+class InvalidAttributeValueException extends RuntimeException
+class PlaylistNotFoundException extends RuntimeException
+AddSongToPlaylistActivity *-- PlaylistDao
+AddSongToPlaylistActivity *-- AlbumTrackDao
+CreatePlaylistActivity *-- PlaylistDao
+GetPlaylistActivity *-- PlaylistDao
+GetPlaylistSongsActivity *-- PlaylistDao
+UpdatePlaylistActivity *-- PlaylistDao
+Playlist -- AlbumTrack
+
+
+
+
+
+@enduml

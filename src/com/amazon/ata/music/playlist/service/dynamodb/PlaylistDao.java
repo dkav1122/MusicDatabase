@@ -2,7 +2,6 @@ package com.amazon.ata.music.playlist.service.dynamodb;
 
 import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 /**
@@ -35,4 +34,23 @@ public class PlaylistDao {
 
         return playlist;
     }
+
+    public Playlist savePlaylist(Playlist playlist) {
+        //if name OR customerId are invalid
+//        if(MusicPlaylistServiceUtils.isValidString(playlist.getName()) != true || MusicPlaylistServiceUtils.isValidString(playlist.getCustomerId()) != true) {
+//            throw new InvalidAttributeValueException("playlist name or customerID cannot have invalid characters.");
+//        }
+        //generate random playlist ID which acts as primaryKey for table items
+//        playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
+
+        //save playlist to table with random generated ID
+        this.dynamoDbMapper.save(playlist);
+
+        return playlist;
+
+
+
+    }
+
+
 }
