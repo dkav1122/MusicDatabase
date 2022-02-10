@@ -24,14 +24,20 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
     private final Logger log = LogManager.getLogger();
     private final PlaylistDao playlistDao;
 
+
+    //do i nned a zero argument constructor
     /**
      * Instantiates a new CreatePlaylistActivity object.
      *
      * @param playlistDao PlaylistDao to access the playlists table.
      */
+
+
     public CreatePlaylistActivity(PlaylistDao playlistDao) {
         this.playlistDao = playlistDao;
     }
+
+
 
     /**
      * This method handles the incoming request by persisting a new playlist
