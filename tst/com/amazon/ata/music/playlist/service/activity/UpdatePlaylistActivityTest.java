@@ -71,6 +71,19 @@ public class UpdatePlaylistActivityTest {
     }
 
     @Test
+    public void handleRequest_invalidCustomerId_throwsInvalidAttributeValueException() {
+        // GIVEN
+        UpdatePlaylistRequest request = UpdatePlaylistRequest.builder()
+                .withId("id")
+                .withName("name")
+                .withCustomerId("I'm illegal")
+                .build();
+
+        // WHEN + THEN
+        assertThrows(InvalidAttributeValueException.class, () -> updatePlaylistActivity.handleRequest(request, null));
+    }
+
+    @Test
     public void handleRequest_playlistDoesNotExist_throwsPlaylistNotFoundException() {
         // GIVEN
         String id = "id";

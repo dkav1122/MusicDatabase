@@ -38,6 +38,17 @@ jacocoTestCoverageVerification {
                 minimum = 0.80
             }
         }
+//        rule {
+//            includes = [
+//                    'com.amazon.ata.music.playlist.service.activity.CreatePlaylistActivity',
+//                    'com.amazon.ata.music.playlist.service.activity.GetPlaylistActivity',
+//                    'com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao',
+//                    'com.amazon.ata.music.playlist.service.activity.UpdatePlaylistActivity'
+//            ]
+//            limit {
+//                minimum = 1.00
+//            }
+//        }
     }
 }
 

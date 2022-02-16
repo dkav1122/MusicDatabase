@@ -15,7 +15,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 /**
  * This class manages service dependencies.
  */
-public class App {
+public class AppMT3 {
     private DynamoDBMapper dynamoDBMapper;
 
     /**
