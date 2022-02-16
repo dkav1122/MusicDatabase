@@ -18,6 +18,7 @@ public class ModelConverter {
 
     List<String> tagsList = new ArrayList<>();
     if (playlist.getTags() == null) {
+        //tried making change to empty list, didnt solve lambda null pointer 2/10/22
         tagsList = null;
     } else {
         tagsList = new ArrayList<>(playlist.getTags());
@@ -27,6 +28,8 @@ public class ModelConverter {
 
         return PlaylistModel.builder()
             .withId(playlist.getId()).withName(playlist.getName()).withCustomerId(playlist.getCustomerId())
-                .withTags(tagsList).withSongCount(playlist.getSongCount()).build();
+                .withTags(tagsList).build();
+
+    //got rid of song count method...songCount wasnt being added in createPlaylistActivity
     }
 }

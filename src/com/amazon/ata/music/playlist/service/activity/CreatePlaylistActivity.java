@@ -1,5 +1,6 @@
 package com.amazon.ata.music.playlist.service.activity;
 
+import com.amazon.ata.music.playlist.service.converters.ModelConverter;
 import com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao;
 import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeValueException;
@@ -88,11 +89,15 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
         playlist.setName(createPlaylistRequest.getName());
         playlist.setCustomerId(createPlaylistRequest.getCustomerId());
+        //is there no song count?
+        //playlist.setSongCount(createPlaylistRequest.);
+        //@DIxon this is new
+        PlaylistModel playlistModel = new ModelConverter().toPlaylistModel(playlist);
 
 
         playlistDao.savePlaylist(playlist);
         return CreatePlaylistResult.builder()
-                .withPlaylist(new PlaylistModel())
+                .withPlaylist(playlistModel) //this is new
                 .build();
     }
 }
