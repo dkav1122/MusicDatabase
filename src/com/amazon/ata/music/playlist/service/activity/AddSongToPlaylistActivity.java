@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -65,9 +66,6 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         AlbumTrack albumTrack;
         Playlist playlist;
 
-//        String playlistID = addSongToPlaylistRequest.getId();
-//        String asinForSong = addSongToPlaylistRequest.getAsin();
-//        int songTrackNumber = addSongToPlaylistRequest.getTrackNumber();
 
         try {
             //get playlist we want to add to
@@ -89,24 +87,34 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
             playlist.setSongList(freshList);
         }
 
+        if (addSongToPlaylistRequest.isQueueNext()) {
+            //add to front of playlist
+            //cast list to linked list
+            LinkedList<AlbumTrack> list = (LinkedList<AlbumTrack>) playlist.getSongList();
+            list.addFirst(albumTrack);
+            playlist.setSongList(list);
+        } else {
+            //add album track to end of playlist
+            playlist.getSongList().add(albumTrack);
+
+        }
+
         //add album track to playlist
-        playlist.getSongList().add(albumTrack);
+       // playlist.getSongList().add(albumTrack);
         //i havent done song count
-        int songCount = playlist.getSongCount();
-        playlist.setSongCount(songCount + 1);
+      //  int songCount = playlist.getSongCount();
+        if(playlist.getSongCount() == null) {
+            playlist.setSongCount(1);
+        } else {
+            playlist.setSongCount(playlist.getSongCount() + 1);
+            //getSongCount reads from the database
+        }
+       // playlist.getSongList() + 1
+      //  playlist.setSongCount(playlist.getSongList().size());
 
         //save playlist with updated song list
         playlist = playlistDao.savePlaylist(playlist);
 
-
-
-        //convert all album tracks in playlist into Song Models
-//        List<SongModel> playlistTracksAsSongModels = new ArrayList<>();
-//        for(AlbumTrack track : playlist.getSongList()) {
-//            playlistTracksAsSongModels.add(new ModelConverter().toSongModel(track));
-//        }
-
-        //turn playlist into song model before loading it in playlist dao
 
 
         return AddSongToPlaylistResult.builder()

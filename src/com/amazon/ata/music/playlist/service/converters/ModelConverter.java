@@ -18,17 +18,17 @@ public class ModelConverter {
         //dont put business logic in model conversion
         //validate requests in one place aka handleReq
 
-    List<String> tagsList = new ArrayList<>();
-    if (playlist.getTags() == null) {
+    List<String> tagsList = null;
+    if (playlist.getTags() != null) {
         //tried making change to empty list, didnt solve lambda null pointer 2/10/22
-        tagsList = null;
-    } else {
+//        tagsList = null;
+//    } else {
         tagsList = new ArrayList<>(playlist.getTags());
     }
 
 
 
-        return PlaylistModel.builder()
+        return PlaylistModel.builder().withSongCount(playlist.getSongCount())
             .withId(playlist.getId()).withName(playlist.getName()).withCustomerId(playlist.getCustomerId())
                 .withTags(tagsList).build();
 

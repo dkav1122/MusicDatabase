@@ -90,6 +90,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
         playlist.setName(createPlaylistRequest.getName());
         playlist.setCustomerId(createPlaylistRequest.getCustomerId());
+        playlist.setSongCount(0);
         //is there no song count?
         //playlist.setSongCount(createPlaylistRequest.);
         //@DIxon this is new
