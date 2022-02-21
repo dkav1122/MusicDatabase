@@ -6,6 +6,7 @@ import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
 import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
 import com.amazon.ata.music.playlist.service.models.SongModel;
+import com.amazon.ata.music.playlist.service.models.SongOrder;
 import com.amazon.ata.music.playlist.service.models.requests.GetPlaylistSongsRequest;
 import com.amazon.ata.music.playlist.service.models.results.GetPlaylistSongsResult;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -70,6 +72,14 @@ public class GetPlaylistSongsActivity implements RequestHandler<GetPlaylistSongs
             List<AlbumTrack> freshList = new ArrayList<>();
             playlist.setSongList(freshList);
         }
+
+        if (getPlaylistSongsRequest.getOrder() != null && getPlaylistSongsRequest.getOrder().equals(SongOrder.SHUFFLED)) {
+            //shuffle list of songs
+            Collections.shuffle(playlist.getSongList());
+        } else if (getPlaylistSongsRequest.getOrder() != null && getPlaylistSongsRequest.getOrder().equals(SongOrder.REVERSED) ) {
+            Collections.reverse(playlist.getSongList());
+        }
+
 
         ModelConverter modelConverter = new ModelConverter();
         List<SongModel> songModelList = modelConverter.toSongModelList(playlist.getSongList());
