@@ -16,7 +16,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
 
         //add album track to playlist
         if (playlist.getSongList() == null) {
-            List<AlbumTrack> freshList = new ArrayList<>();
+            List<AlbumTrack> freshList = new LinkedList<>();
             playlist.setSongList(freshList);
         }
 
@@ -92,6 +91,7 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
             //cast list to linked list
             LinkedList<AlbumTrack> list = (LinkedList<AlbumTrack>) playlist.getSongList();
             list.addFirst(albumTrack);
+           // List<AlbumTrack> backToArrayList = new ArrayList<>(list);
             playlist.setSongList(list);
         } else {
             //add album track to end of playlist
